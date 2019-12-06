@@ -64,3 +64,47 @@ pred = linear(x)
 loss = criterion(pred, y)
 print('loss after 1 step optimization: ', loss.item())
 
+# ================================================================== #
+#                     3. Loading data from numpy                     #
+# ================================================================== #
+
+# 建一个numpy array
+x = np.array([[1,2],[3,4]])
+
+# Convert the numpy array to a torch tensor.
+y = torch.from_numpy(x)
+
+# Convert the torch tensor to a numpy array.
+z = y.numpy()
+
+# ================================================================== #
+#                         4. Input pipline                           #
+# ================================================================== #
+
+# Download CIFAR-10 dataset.
+# transform 包含了如何对数据进行处理
+train_dataset = torchvision.datasets.CIFAR10(root='../../data/',
+                                             train=True, 
+                                             transform=transforms.ToTensor(),
+                                             download=True)
+
+# read data from disk 只读一组数据
+image, label = train_dataset[0]
+print (image.size())
+print (label)
+
+# 数据加载器：设置batch大小，线程，是否打乱等
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                           batch_size=64, 
+                                           shuffle=True)
+
+# 遍历加载器 得到每个batch文件
+data_iter = iter(train_loader)
+
+# next方法得到一个batch
+images, labels = data_iter.next()
+
+# 每次batch大小进行喂入数据
+for images, labels in train_loader:
+    # Training code should be written here.
+    pass
