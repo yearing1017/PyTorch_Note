@@ -1,6 +1,10 @@
 # PyTorch_Note
 ⏰PyTorch学习笔记
+## Pytorch_tutorial
+- [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：pytorch自动求导、数据集的使用、模型保存及载入
+
 ## 60分钟熟悉Pytorch
+- 本部分为官方的中文文档内容，放在首页为了每次方便查阅
 ### 张量
 
 - `Tensor`（张量）类似于`NumPy`的`ndarray`，但还可以在GPU上使用来加速计算
