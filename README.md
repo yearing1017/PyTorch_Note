@@ -2,7 +2,7 @@
 ⏰PyTorch学习笔记
 ## Pytorch_tutorial
 - [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：自动求导、数据集的使用、模型保存及载入
-- [Pytorch_linearRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_linearRegression.py):线性回归例子实现完整训练
+- [Pytorch_linearRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_linearRegression.py)：线性回归例子实现完整训练
 
 ## 60分钟熟悉Pytorch
 - 本部分为官方的中文文档内容，放在首页为了每次方便查阅
