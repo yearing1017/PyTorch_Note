@@ -57,6 +57,13 @@ total_step = len(train_loader)
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         images = images.reshape(-1, 28*28).to(device)
+        labels = labels.to(device)
+        
+        # forward 计算
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        
+        
         
         
         
