@@ -63,7 +63,32 @@ for epoch in range(num_epochs):
         outputs = model(images)
         loss = criterion(outputs, labels)
         
+        # 反向传播优化
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
         
+        # tensor.item()  获取tensor的数值
+        if (i+1) % 100 == 0:
+            print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
+                   .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
+            
+# 测试model
+with torch.no_grad():
+    total = 0
+    correct = 0
+    for images, labels in test_loader:
+        images = images.reshape(-1, 28*28).to(device)
+        labels = labels.to(device)
+        outputs = model(images)
+        _, predicted = torch.max(outputs.data,1)
+        total+=labels.size(0) # labels numpy的array类型，0代表第0维，size(0)代表行数
+        correct += (predicted == labels).sum().item()
+        
+     print('Accuracy of the network on the 10000 test images: {} %'.format(100 * correct / total))
+
+# 保存模型
+torch.save(model.state_dict, 'model.ckpt')
         
         
         
