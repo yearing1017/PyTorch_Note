@@ -6,6 +6,47 @@
 - [Pytorch_logisticRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_logisticRegression.py)：MINIST+逻辑回归实现训练测试
 - [Pytorch_NNdemo.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_NNdemo.py)：MINIST+简易神经网络实现训练测试
 - [Pytorch_CNN](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_CNN.py)：MINST+卷积神经网络训练测试
+
+## Pytorch_已解决问题_1
+- 在跑unet的模型时，遇到该错误:
+`RuntimeError: Given groups=1, weight of size 64 3 3 3, expected input[4, 64, 158, 158] to have 3 channels, but got 64 channels instead`
+- 问题是输入本来该是 3 channels，但却是64通道。
+- 解决思路：打印了一下输入的size:[4,3,160,160],本来以为没错误，就一直在找。
+- 实际问题：因为我在以下代码部分有两个卷积操作，我的第二个卷积的输入应该是第一个卷积的输出，我却设定了两者相同。如下：
+```python
+class DoubleConv(nn.Module):
+	def __init__(self, in_channels, out_channels):
+		super.__init__()
+		# 构建一个“容器网络”
+		self.double_conv = nn.Sequential(
+			nn.Conv2d(in_channels,out_channels,kernel_size=3),
+			nn.BatchNorm2d(out_channels),
+			nn.ReLU(inplace=True),
+			nn.Conv2d(in_channels,out_channels,kernel_size=3),
+			nn.BatchNorm2d(out_channels),
+			nn.ReLU(inplace=True)
+		)
+	def forward(self,x):
+		return self.double_conv(x)
+```
+- 在第25行的卷积中，我的in_channels和第一个卷积的一样，但却应该是第一个的输出，所以改为out_channels,如下：
+```python
+class DoubleConv(nn.Module):
+	def __init__(self, in_channels, out_channels):
+		super.__init__()
+		# 构建一个“容器网络”
+		self.double_conv = nn.Sequential(
+			nn.Conv2d(in_channels,out_channels,kernel_size=3),
+			nn.BatchNorm2d(out_channels),
+			nn.ReLU(inplace=True),
+			nn.Conv2d(out_channels,out_channels,kernel_size=3),
+			nn.BatchNorm2d(out_channels),
+			nn.ReLU(inplace=True)
+		)
+	def forward(self,x):
+		return self.double_conv(x)
+```
+
 ## 60分钟熟悉Pytorch
 - 本部分为官方的中文文档内容，放在首页为了每次方便查阅
 ### 张量
