@@ -1,13 +1,13 @@
 # PyTorch_Note
 ⏰PyTorch学习笔记
-## Pytorch_tutorial
+## 💡 Pytorch_tutorial
 - [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：自动求导、数据集的使用、模型保存及载入
 - [Pytorch_linearRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_linearRegression.py)：线性回归例子实现完整训练
 - [Pytorch_logisticRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_logisticRegression.py)：MINIST+逻辑回归实现训练测试
 - [Pytorch_NNdemo.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_NNdemo.py)：MINIST+简易神经网络实现训练测试
 - [Pytorch_CNN](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_CNN.py)：MINST+卷积神经网络训练测试
 
-## Pytorch_已解决问题_1
+## 💡 Pytorch_已解决问题_1
 - 在跑unet的模型时，遇到该错误:
 `RuntimeError: Given groups=1, weight of size 64 3 3 3, expected input[4, 64, 158, 158] to have 3 channels, but got 64 channels instead`
 - 问题是输入本来该是 3 channels，但却是64通道。
@@ -47,7 +47,23 @@ class DoubleConv(nn.Module):
 		return self.double_conv(x)
 ```
 
-## 60分钟熟悉Pytorch
+## 💡 Pytorch_cv2_Tensor相关
+- 一个灰度的图片，只有一个通道，只是cv2读取image，打印shape，仅仅显示[H, W]
+- 若使用了torchvision.ToTensor()方法，再打印shape，会打印出[C, H, W]
+```python
+import cv2
+import torch
+import torchvision.transforms
+
+image_name = 'Dataset/2d_images/ID_0000_Z_0142.tif'
+image = cv2.imread(image_name, 0)
+print(image.shape) # (512,512)
+image_tensor = torchvision.transforms.ToTensor()(image)
+print(image_tensor.shape) # torch.Size([1, 512, 512])
+```
+
+
+## 💡 60分钟熟悉Pytorch
 - 本部分为官方的中文文档内容，放在首页为了每次方便查阅
 ### 张量
 
