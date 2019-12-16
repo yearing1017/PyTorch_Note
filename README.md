@@ -49,7 +49,7 @@ class DoubleConv(nn.Module):
 
 ## 💡 Pytorch_cv2_Tensor相关
 - 一个灰度的图片，只有一个通道，只是cv2读取image，打印shape，仅仅显示[H, W]
-- 若使用了torchvision.ToTensor()方法，再打印shape，会打印出[C, H, W]
+- 若使用了torchvision.ToTensor()方法，再打印shape，会打印出[C, H, W],且进行了归一化，取值范围为[0,1.0]的torch.FloatTensor
 ```python
 import cv2
 import torch
@@ -61,7 +61,26 @@ print(image.shape) # (512,512)
 image_tensor = torchvision.transforms.ToTensor()(image)
 print(image_tensor.shape) # torch.Size([1, 512, 512])
 ```
+- 还有一种暴力方法得到想要的shape，先resize，再reshape，最后再转为tensor，这期间没有进行归一化
+```python
+import torch
+import torchvision.transforms
+import cv2
 
+image_name = 'Dataset/2d_images/ID_0000_Z_0142.tif'
+image = cv2.imread(image_name, 0)
+print(image.shape)
+image = cv2.resize(image, (160, 160))
+image_new = image.reshape((1, 160, 160))
+image_tensor = torch.FloatTensor(image_new)
+print(image_new.shape)
+print(image_tensor.shape)
+
+# 输出：
+(512, 512)
+(1, 160, 160)
+torch.Size([1, 160, 160])
+```
 
 ## 💡 60分钟熟悉Pytorch
 - 本部分为官方的中文文档内容，放在首页为了每次方便查阅
