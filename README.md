@@ -8,10 +8,15 @@
 - [Pytorch_CNN](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_CNN.py)：MINST+卷积神经网络训练测试
 
 ## 💡 Pytorch_已解决问题_1
+
 - 在跑unet的模型时，遇到该错误:
+
 `RuntimeError: Given groups=1, weight of size 64 3 3 3, expected input[4, 64, 158, 158] to have 3 channels, but got 64 channels instead`
+
 - 问题是输入本来该是 3 channels，但却是64通道。
+
 - 解决思路：打印了一下输入的size:[4,3,160,160],本来以为没错误，就一直在找。
+
 - 实际问题：因为我在以下代码部分有两个卷积操作，我的第二个卷积的输入应该是第一个卷积的输出，我却设定了两者相同。如下：
 ```python
 class DoubleConv(nn.Module):
@@ -29,6 +34,7 @@ class DoubleConv(nn.Module):
 	def forward(self,x):
 		return self.double_conv(x)
 ```
+
 - 在第25行的卷积中，我的in_channels和第一个卷积的一样，但却应该是第一个的输出，所以改为out_channels,如下：
 ```python
 class DoubleConv(nn.Module):
@@ -48,7 +54,9 @@ class DoubleConv(nn.Module):
 ```
 
 ## 💡 Pytorch_cv2_Tensor相关
+
 - 一个灰度的图片，只有一个通道，只是cv2读取image，打印shape，仅仅显示[H, W]
+
 - 若使用了torchvision.ToTensor()方法，再打印shape，会打印出[C, H, W],且进行了归一化，取值范围为[0,1.0]的torch.FloatTensor
 ```python
 import cv2
@@ -61,6 +69,7 @@ print(image.shape) # (512,512)
 image_tensor = torchvision.transforms.ToTensor()(image)
 print(image_tensor.shape) # torch.Size([1, 512, 512])
 ```
+
 - 还有一种暴力方法得到想要的shape，先resize，再reshape，最后再转为tensor，这期间没有进行归一化
 ```python
 import torch
@@ -81,6 +90,15 @@ print(image_tensor.shape)
 (1, 160, 160)
 torch.Size([1, 160, 160])
 ```
+- `cv2.resize(img, (width, height))`参数是:先宽后高
+
+- **class torchvision.transforms.ToTensor**:
+  - 把一个取值范围是`[0,255]`的`PIL.Image`或者`shape`为`(H,W,C)`的`numpy.ndarray`，转换成形状为`[C,H,W]`，取值范围是`[0,1.0]`的`torch.FloatTensor`
+  
+- **class torchvision.transforms.Normalize(mean, std)**:
+  - 给定均值：`(R,G,B)` 方差：`（R，G，B）`，将会把`Tensor`正则化。即：`Normalized_image=(image-mean)/std`
+  
+- cv2.imread(img, 1)：返回结果为`type: numpy.ndarray `，多维数组
 
 ## 💡 60分钟熟悉Pytorch
 - 本部分为官方的中文文档内容，放在首页为了每次方便查阅
