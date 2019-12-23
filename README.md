@@ -7,6 +7,7 @@
 - [Pytorch_NNdemo.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_NNdemo.py)：MINIST+简易神经网络实现训练测试
 - [Pytorch_CNN](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_CNN.py)：MINST+卷积神经网络训练测试
 - [pytorch_cuda.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/pytorch_cuda.ipynb)：pytorch有关cuda的基本操作与概念
+- [LeNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/LeNet.ipynb)：pytorch搭建LeNet网络
 
 ## 💡 Pytorch_已解决问题_1
 
