@@ -183,3 +183,27 @@ ModuleList(
 - 既然Sequential和ModuleList都可以进行列表化构造网络，那二者区别是什么呢。
 - ModuleList仅仅是一个储存各种模块的列表，这些模块之间没有联系也没有顺序（所以不用保证相邻层的输入输出维度匹配），而且没有实现forward功能需要自己实现，所以上面执行net(torch.zeros(1, 784))会报NotImplementedError；
 - 而Sequential内的模块需要按照顺序排列，要保证相邻层的输入输出大小相匹配，内部forward功能已经实现。
+
+### 4.4 ModuleDict类
+- ModuleDict接收一个子模块的字典作为输入, 然后也可以类似字典那样进行添加访问操作:
+```python
+net = nn.ModuleDict({
+    'linear': nn.Linear(784, 256),
+    'act': nn.ReLU(),
+})
+net['output'] = nn.Linear(256, 10) # 添加
+print(net['linear']) # 访问
+print(net.output)
+print(net)
+# net(torch.zeros(1, 784)) # 会报NotImplementedError
+# 输出
+Linear(in_features=784, out_features=256, bias=True)
+Linear(in_features=256, out_features=10, bias=True)
+ModuleDict(
+  (act): ReLU()
+  (linear): Linear(in_features=784, out_features=256, bias=True)
+  (output): Linear(in_features=256, out_features=10, bias=True)
+)
+```
+- 和ModuleList一样，ModuleDict实例仅仅是存放了一些模块的字典，并没有定义forward函数需要自己定义。
+- 同样，ModuleDict也与Python的Dict有所不同，ModuleDict里的所有模块的参数会被自动添加到整个网络中。
