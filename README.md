@@ -207,3 +207,18 @@ ModuleDict(
 ```
 - 和ModuleList一样，ModuleDict实例仅仅是存放了一些模块的字典，并没有定义forward函数需要自己定义。
 - 同样，ModuleDict也与Python的Dict有所不同，ModuleDict里的所有模块的参数会被自动添加到整个网络中。
+
+## 💡 5. Pytorch的CrossEntropyLoss
+
+- 错误描述：语义分割实验中，在对label进行onehot编码之后，将其变为(4,4,640,640)，定义loss如下：
+```python
+criterion = nn.CrossEntropyLoss().to(device)
+loss = criterion(output, label)
+```
+- 报错：**大致为，期望的target是3维，却得到了一个4维。**
+- 查看官方文档如下：
+![](https://github.com/yearing1017/PyTorch_Note/blob/master/image/5-4.png)
+- 该损失函数包含了**softmax函数**，**该损失函数期望的target是在像素值为（0，C-1）的一个标注图。与标注好的label相对应，每个像素值标注了类别0-3。共4类**
+![](https://github.com/yearing1017/PyTorch_Note/blob/master/image/5-3.png)
+- 上图详细解释了loss函数的要求的shape。对于语义分割的4维向量来说：**要求input即网络的预测为(N,C,H,W)，target为(N, H, W)，且target[i]在0-C-1之间。**
+- **改动：去掉onehot，直接读入标注的label，因为符合上述要求。**
