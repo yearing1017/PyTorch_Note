@@ -11,6 +11,8 @@
 - [LeNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/LeNet.ipynb)：pytorch搭建LeNet网络
 - [ResNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/ResNet.ipynb)：pytorch搭建ResNet
 - [Pytorch_图像增强](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_图像增强.md)：总结了pytorch中主要用到的7中图像增强的方法
+- [DenseNet_PyTorch实现](https://github.com/yearing1017/PyTorch_Note/blob/master/DenseNet_PyTorch.md)
+
 
 ## 💡 2. Pytorch_已解决问题_1
 
