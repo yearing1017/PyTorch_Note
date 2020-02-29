@@ -225,3 +225,8 @@ loss = criterion(output, label)
 ![](https://github.com/yearing1017/PyTorch_Note/blob/master/image/5-3.png)
 - 上图详细解释了loss函数的要求的shape。对于语义分割的4维向量来说：**要求input即网络的预测为(N,C,H,W)，target为(N, H, W)，且target[i]在0-C-1之间。**
 - **改动：去掉onehot，直接读入标注的label，因为符合上述要求。**
+
+## 💡 6. tensorboardX的简单使用
+- 安装：
+`pip install tensorboardX`
+- 
