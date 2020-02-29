@@ -229,4 +229,8 @@ loss = criterion(output, label)
 ## 💡 6. tensorboardX的简单使用
 - 安装：
 `pip install tensorboardX`
-- 
+- 简单数据的记录
+```python
+from tensorboardX import SummaryWriter
+writer.add_scalar('train_loss', train_loss/len(train_dataloader), epo)
+```
