@@ -169,7 +169,7 @@ class LeNet(nn.Module):
 
 ### 4.3 ModuleList类
 
-- ModuleList接收一个子模块的列表作为输入，然后也可以类似List那样进行append和extend操作:
+- ModuleList接收一个子模块的列表作为输入，然后类似List那样进行append和extend操作:
 ```python
 net = nn.ModuleList([nn.Linear(784, 256), nn.ReLU()])
 net.append(nn.Linear(256, 10)) # # 类似List的append操作
