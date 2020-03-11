@@ -13,6 +13,7 @@
 - [Pytorch_图像增强](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_图像增强.md)：总结了pytorch中主要用到的7中图像增强的方法
 - [DenseNet_PyTorch实现](https://github.com/yearing1017/PyTorch_Note/blob/master/DenseNet_PyTorch.md)；回顾DenseNet的核心架构以及使用PyTorch进行实现
 - [PyTorch保存模型两种方式的比较](https://zhuanlan.zhihu.com/p/94971100)：保存模型和保存模型参数及load使用的方式
+- [PyTorch对于数据集的处理方式-torch.utils.data](https://www.cnblogs.com/Bella2017/p/11791216.html)
 
 
 ## 💡 2. Pytorch_已解决问题_1
