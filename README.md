@@ -238,4 +238,113 @@ writer.add_scalar('train_loss', train_loss/len(train_dataloader), epo)
 ```
 
 ## 💡 7. 预训练模型参数的使用
-- 在训练时，会考虑是否采用在例如Image数据集上预训练
+- 在训练时，会考虑是否采用在例如Image数据集上预训练得到的参数，但是有的时候预训练得到的网络结构是当前训练网络的一部分
+- 例如：deeplabv3-resnet基于残差网络，我们若使用resnet的预训练参数，则需要判断那些层可以使用（其中deeplabv3中新添加了aspp和移除了FC）
+- 实例代码如下：
+```python
+model_urls = {
+    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
+    'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
+}
+
+# 基于ResNet的deeplabv3
+class ResNet(nn.Module):
+    def __init__(self, block, block_num, num_classes, num_groups=None, weight_std=False, beta=False, pretrained=False):
+        self.inplanes = 64 # 控制残差块的输入通道数 planes:输出通道数
+        # nn.BatchNorm2d和nn.GroupNorm两种不同的归一化方法
+        self.norm = nn.BatchNorm2d
+        self.conv = Conv2d if weight_std else nn.Conv2d
+        super(ResNet, self).__init__()
+
+        if not beta:
+            # 整个ResNet的第一个conv
+            self.conv1 = self.conv(3, 64, kernel_size=7, stride=2, padding=3,
+                                   bias=False)
+        else:
+            # 第一个残差模块的conv
+            self.conv1 = nn.Sequential(
+                self.conv(3, 64, 3, stride=2, padding=1, bias=False),
+                self.conv(64, 64, 3, stride=1, padding=1, bias=False),
+                self.conv(64, 64, 3, stride=1, padding=1, bias=False))
+        self.bn1 = self.norm(64)
+        self.relu = nn.ReLU(inplace=True)
+        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+
+        # 建立残差块部分
+        self.layer1 = self._make_layer(block, 64,  block_num[0])
+        self.layer2 = self._make_layer(block, 128, block_num[1], stride=2)
+        self.layer3 = self._make_layer(block, 256, block_num[2], stride=2)
+        # block4开始为dilation空洞卷积
+        self.layer4 = self._make_layer(block, 512, block_num[3], stride=1, dilation=2)
+        # aspp,512 * block.expansion是经过残差模块的输出通道数
+        self.aspp = ASPP(512 * block.expansion, 256, num_classes, conv=self.conv, norm=self.norm)
+        # 遍历模型进行初始化
+        for m in self.modules():
+            if isinstance(m, self.conv):        #isinstance：m类型判断    若当前组件为 conv
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))  #正太分布初始化
+            elif isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.GroupNorm): #若为batchnorm
+                m.weight.data.fill_(1)          #weight为1
+                m.bias.data.zero_()             #bias为0
+
+        if pretrained:
+            self._load_pretrained_model()
+
+    def _make_layer(self, block, planes, blocks, stride=1, dilation=1):
+        downsample = None
+        # stride!=1 代表后续残差块中有stride=2，尺寸大小改变，所以第一个残差块中的stride也该用来修改尺寸
+        if stride != 1 or dilation != 1 or self.inplanes != planes * block.expansion:
+            downsample = nn.Sequential(
+                self.conv(self.inplanes, planes * block.expansion,
+                          kernel_size=1, stride=stride, dilation=max(1, dilation/2), bias=False),
+                self.norm(planes * block.expansion),
+            )
+        # laysers 存放产生的残差块，最后根据此列表进行生成网络
+        layers = []
+        # 在多个残差块中，只有第一个残差块的输入输出通道不一致，所以先单独添加带downsample的block
+        layers.append(block(self.inplanes, planes, stride, downsample, dilation=max(1, dilation/2), conv=self.conv, norm=self.norm))
+        self.inplanes = planes * block.expansion
+        for i in range(1, blocks):
+            layers.append(block(self.inplanes, planes, dilation=dilation, conv=self.conv, norm=self.norm))
+
+        return nn.Sequential(*layers)
+
+
+    def forward(self, x):
+        # x.shape:[batch_size, channels, H, w]
+        size = (x.shape[2], x.shape[3])
+        x = self.conv1(x)
+        x = self.bn1(x)
+        x = self.relu(x)
+        x = self.maxpool(x)
+
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+
+        # ASPP
+        x = self.aspp(x)
+        #x = x.reshape(-1, x.shape[1])
+        x = nn.Upsample(size, mode='bilinear', align_corners=True)(x)
+        return x
+    # 根据具体的网络层来载入模型参数    
+    def _load_pretrained_model(self):
+        pretrain_dict = model_zoo.load_url(model_urls['resnet152'])
+        model_dict = {}
+        state_dict = self.state_dict()
+        for k, v in pretrain_dict.items():
+            if k in state_dict:
+                model_dict[k] = v
+        state_dict.update(model_dict)
+        self.load_state_dict(state_dict)
+
+def resnet152(pretrained=True, **kwargs):
+    """Constructs a ResNet-152 model.
+    Args:
+        pretrained (bool): If True, returns a model pre-trained on ImageNet
+    """
+    model = ResNet(Bottleneck, [3, 8, 36, 3], num_classes=4, pretrained=pretrained, **kwargs)
+    return model
+```
