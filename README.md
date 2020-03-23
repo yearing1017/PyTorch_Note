@@ -15,6 +15,7 @@
 - [PyTorch保存模型两种方式的比较](https://zhuanlan.zhihu.com/p/94971100)：保存模型和保存模型参数及load使用的方式
 - [PyTorch对于数据集的处理方式-torch.utils.data](https://www.cnblogs.com/Bella2017/p/11791216.html)：subset根据索引来获取子集
 - [PyTorch常用代码段转载](https://zhuanlan.zhihu.com/p/104019160)：非常高人气的文章，适合查阅
+- [OpenCV-腐蚀膨胀算法的简单理解](https://www.cnblogs.com/XJT2018/p/9958895.html)：讲解了基础的腐蚀、膨胀算法原理，通俗易懂
 
 ## 💡 2. Pytorch_已解决问题_1
 
