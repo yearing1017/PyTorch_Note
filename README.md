@@ -236,3 +236,6 @@ loss = criterion(output, label)
 from tensorboardX import SummaryWriter
 writer.add_scalar('train_loss', train_loss/len(train_dataloader), epo)
 ```
+
+## 💡 7. 预训练模型参数的使用
+- 在训练时，会考虑是否采用在例如Image数据集上预训练
