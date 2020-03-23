@@ -1,6 +1,6 @@
 # PyTorch_Note
-⏰PyTorch学习笔记
-## 💡 1. Pytorch_tutorial
+⏰ PyTorch学习笔记
+## 💡 1. PyTorch_tutorial
 - [Pytorch_60min.md](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_60min.md)：官方60分钟入门Pytorch
 - [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：自动求导、数据集的使用、模型保存及载入
 - [Pytorch_linearRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_linearRegression.py)：线性回归例子实现完整训练
@@ -17,7 +17,7 @@
 - [PyTorch常用代码段转载](https://zhuanlan.zhihu.com/p/104019160)：非常高人气的文章，适合查阅
 - [OpenCV-腐蚀膨胀算法的简单理解](https://www.cnblogs.com/XJT2018/p/9958895.html)：讲解了基础的腐蚀、膨胀算法原理，通俗易懂
 
-## 💡 2. Pytorch_已解决问题_1
+## 💡 2. PyTorch_已解决问题_1
 
 - 在跑unet的模型时，遇到该错误:
 
@@ -63,7 +63,7 @@ class DoubleConv(nn.Module):
 		return self.double_conv(x)
 ```
 
-## 💡 3. Pytorch_cv2_Tensor相关
+## 💡 3. PyTorch_cv2_Tensor相关
 
 - 一个灰度的图片，只有一个通道，只是cv2读取image，打印shape，仅仅显示[H, W]
 
@@ -110,7 +110,7 @@ torch.Size([1, 160, 160])
   
 - cv2.imread(img, 1)：返回结果为`type: numpy.ndarray `，多维数组
 
-## 💡 4. Pytorch模型构造
+## 💡 4. PyTorch模型构造
 
 ###  4.1 继承Module类来构造模型
 
@@ -214,7 +214,7 @@ ModuleDict(
 - 和ModuleList一样，ModuleDict实例仅仅是存放了一些模块的字典，并没有定义forward函数需要自己定义。
 - 同样，ModuleDict也与Python的Dict有所不同，ModuleDict里的所有模块的参数会被自动添加到整个网络中。
 
-## 💡 5. Pytorch的CrossEntropyLoss
+## 💡 5. PyTorch的CrossEntropyLoss
 
 - 错误描述：语义分割实验中，在对label进行onehot编码之后，将其变为(4,4,640,640)，定义loss如下：
 ```python
@@ -229,7 +229,7 @@ loss = criterion(output, label)
 - 上图详细解释了loss函数的要求的shape。对于语义分割的4维向量来说：**要求input即网络的预测为(N,C,H,W)，target为(N, H, W)，且target[i]在0-C-1之间。**
 - **改动：去掉onehot，直接读入标注的label，因为符合上述要求。**
 
-## 💡 6. tensorboardX的简单使用
+## 💡 6. TensorboardX的简单使用
 - 安装：
 `pip install tensorboardX`
 - 简单数据的记录: `writer.add_scalar(名称，数值，x轴坐标)`
