@@ -18,7 +18,7 @@
 - [OpenCV-腐蚀膨胀算法的简单理解](https://www.cnblogs.com/XJT2018/p/9958895.html)：讲解了基础的腐蚀、膨胀算法原理，通俗易懂
 - [60题PyTorch简易入门指南](https://zhuanlan.zhihu.com/p/99318332)：有关PyTorch的入门使用语句积累
 - [PyTorch多gpu训练](https://zhuanlan.zhihu.com/p/86441879)：有关如何使用多gpu共同训练的知识
-- [](https://zhuanlan.zhihu.com/p/76459295)
+- [PyTorch_trick集锦](https://zhuanlan.zhihu.com/p/76459295)：大神的有关PyTorch使用技巧总结
 
 ## 💡 2. PyTorch_已解决问题_1
 
