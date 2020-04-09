@@ -1,16 +1,16 @@
 # PyTorch_Note
 ⏰ PyTorch学习笔记
 ## 💡 1. PyTorch_tutorial
-- [Pytorch_60min.md](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_60min.md)：官方60分钟入门Pytorch
+- [Pytorch_60min.md](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_60min.md)：官方60分钟入门PyTorch
 - [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：自动求导、数据集的使用、模型保存及载入
 - [Pytorch_linearRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_linearRegression.py)：线性回归例子实现完整训练
 - [Pytorch_logisticRegression.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_logisticRegression.py)：MINIST+逻辑回归实现训练测试
 - [Pytorch_NNdemo.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_NNdemo.py)：MINIST+简易神经网络实现训练测试
 - [Pytorch_CNN](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_CNN.py)：MINST+卷积神经网络训练测试
-- [pytorch_cuda.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/pytorch_cuda.ipynb)：pytorch有关cuda的基本操作与概念
-- [LeNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/LeNet.ipynb)：pytorch搭建LeNet网络
-- [ResNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/ResNet.ipynb)：pytorch搭建ResNet
-- [Pytorch_图像增强](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_图像增强.md)：总结了pytorch中主要用到的7中图像增强的方法
+- [pytorch_cuda.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/pytorch_cuda.ipynb)：PyTorch有关cuda的基本操作与概念
+- [LeNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/LeNet.ipynb)：PyTorch搭建LeNet网络
+- [ResNet.ipynb](https://github.com/yearing1017/PyTorch_Note/blob/master/ResNet.ipynb)：PyTorch搭建ResNet
+- [Pytorch_图像增强](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_图像增强.md)：总结了PyTorch中主要用到的7中图像增强的方法
 - [DenseNet_PyTorch实现](https://github.com/yearing1017/PyTorch_Note/blob/master/DenseNet_PyTorch.md)；回顾DenseNet的核心架构以及使用PyTorch进行实现
 - [PyTorch保存模型两种方式的比较](https://zhuanlan.zhihu.com/p/94971100)：保存模型和保存模型参数及load使用的方式
 - [PyTorch对于数据集的处理方式-torch.utils.data](https://www.cnblogs.com/Bella2017/p/11791216.html)：subset根据索引来获取子集
