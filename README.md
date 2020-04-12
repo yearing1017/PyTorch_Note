@@ -19,6 +19,7 @@
 - [60题PyTorch简易入门指南](https://zhuanlan.zhihu.com/p/99318332)：有关PyTorch的入门使用语句积累
 - [PyTorch多gpu训练](https://zhuanlan.zhihu.com/p/86441879)：有关如何使用多gpu共同训练的知识
 - [PyTorch_trick集锦](https://zhuanlan.zhihu.com/p/76459295)：大神的有关PyTorch使用技巧总结
+- [lr的Poly机制](https://github.com/yearing1017/PyTorch_Note/blob/master/PolyLr.py)：实现了论文中对于学习率的poly机制
 
 ## 💡 2. PyTorch_已解决问题_1
 
