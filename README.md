@@ -20,7 +20,7 @@
 - [PyTorch多gpu训练](https://zhuanlan.zhihu.com/p/86441879)：有关如何使用多gpu共同训练的知识
 - [PyTorch_trick集锦](https://zhuanlan.zhihu.com/p/76459295)：大神的有关PyTorch使用技巧总结
 - [lr的Poly机制](https://github.com/yearing1017/PyTorch_Note/blob/master/PolyLr.py)：实现了论文中对于学习率的poly机制
-- [PyTorch张量的运算以及Broadcasting机制](https://blog.csdn.net/shu15121856/article/details/87886885)：总结了torch中tensor的加减乘除等运算，简介了Broadcasting机制在运算上的应用
+- [PyTorch张量的运算以及Broadcasting机制](https://blog.csdn.net/shu15121856/article/details/87886885)：总结了torch中tensor的加减乘除等运算，Broadcasting机制的应用
 
 ## 💡 2. PyTorch_已解决问题_1
 
