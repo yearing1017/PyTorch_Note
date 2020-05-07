@@ -354,3 +354,7 @@ def resnet152(pretrained=True, **kwargs):
     model = ResNet(Bottleneck, [3, 8, 36, 3], num_classes=4, pretrained=pretrained, **kwargs)
     return model
 ```
+
+## 8. 💡一个有关batch_size的报错
+- 在离线数据增强之后，有一部分数据是320x320大小，有一部分是随机裁剪的192大小，如果在读入batch数据的时候，图像尺寸及通道数据应保持一致，否则会报`Runtime Error`
+- 
