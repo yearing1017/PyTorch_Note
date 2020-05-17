@@ -21,6 +21,7 @@
 - [PyTorch_trick集锦](https://zhuanlan.zhihu.com/p/76459295)：大神的有关PyTorch使用技巧总结
 - [lr的Poly机制](https://github.com/yearing1017/PyTorch_Note/blob/master/PolyLr.py)：实现了论文中对于学习率的poly机制
 - [PyTorch张量的运算以及Broadcasting机制](https://blog.csdn.net/shu15121856/article/details/87886885)：总结了torch中tensor的加减乘除等运算，Broadcasting机制的应用
+- [PyTorch中的contiguous()函数用法](https://www.jianshu.com/p/7e72cc1ab7a0)
 
 ## 💡 2. PyTorch_已解决问题_1
 
