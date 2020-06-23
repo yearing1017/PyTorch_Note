@@ -1,5 +1,6 @@
 # PyTorch_Note
-⏰ PyTorch学习笔记
+## ⏰ PyTorch学习资料的积累
+
 ## 💡 1. PyTorch_tutorial
 - [Pytorch_60min.md](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_60min.md)：官方60分钟入门PyTorch
 - [Pytorch_Basic.py](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_Basic.py)：自动求导、数据集的使用、模型保存及载入
