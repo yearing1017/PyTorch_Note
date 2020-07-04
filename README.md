@@ -1,5 +1,5 @@
 # PyTorch_Note
-## ⏰ PyTorch学习资料的积累
+## 📚 PyTorch学习资料与常见错误积累
 
 ## 💡 1. PyTorch_tutorial
 - [Pytorch_60min.md](https://github.com/yearing1017/PyTorch_Note/blob/master/Pytorch_60min.md)：官方60分钟入门PyTorch
@@ -359,9 +359,18 @@ def resnet152(pretrained=True, **kwargs):
 ```
 
 ## 💡 8. 一个有关batch_size的报错
+
 - 在离线数据增强之后，有一部分数据是320x320大小，有一部分是随机裁剪的192大小，如果在读入batch数据的时候，图像尺寸及通道数据应保持一致，否则会报`Runtime Error`
 - 目前想到的一个解决方法：使用在线增强方法，读入一个batch，就进行数据裁剪，保证一致性
 - 离线数据增强，若使用pad方法，resize至320大小，label的补齐部分数据都会对训练有误导
 
 ## 💡 9. 有关cuda跨设备的问题
-- 问题：我的模型在自己的服务器的'cuda:1'上训练所得，将模型放在别的主机上运行，该主机只有一块'cuda:0'
+
+- 保存的模型中绑定了训练时使用的设备号：
+- 如我在“cuda:3”上训练，保存的模型在你读取出来时就会默认是在"cuda:3"上，一个有意思的问题就是如果你的服务器上并没有4块卡，那模型读取时就会报错
+- `RuntimeError: Attempting to deserialize object on CUDA device 3 but torch.cuda.device_count() is 2. Please use torch.load with map_location to map your storages to an existing device.`
+- 出现这种情况时就需要用跨设备加载模型的方法，使用如下代码可以解决:
+```
+device = torch.device("cuda:0")
+model = torch.load(PATH, map_location=device)
+```
